@@ -1,0 +1,26 @@
+Dwelland
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+version 0.00.001 --- 12/10/2016 ---
+
+Added:
+1. The project is created and added to Bitbucket
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+version 0.00.010 --- 25/10/2016 ---
+
+Added:
+1. A constant sized plane is created at start and it is transformed into a terrain by getting values from perlin noise with a scale
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+version 0.00.100 --- 1/11/2016 ---
+
+Added:
+1. In App panel containing some features
+2. You can create new terrains with a seed or random
+	whenever a seed is entered, random option is disabled
+3. The camera rotates around the screen
+
+Changes & Improvements
+1. A multiplier variable is created to control the depth of the terrain
+2. The terrain is centered
+3. The terrain is more realistic now because of altering the frequency and amplitude of the landscape
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 

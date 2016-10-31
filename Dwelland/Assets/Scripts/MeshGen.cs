@@ -5,22 +5,29 @@ using System.Collections;
 public class MeshGen : MonoBehaviour
 {
     public Material defMat;
+    private GameObject terrainObj;
 
     private Vector3[] vertices;
+    public LandGenCalc landGenCalc;
 
     public void Awake()
     {
         int width = Vars.terWidth;
         int height = Vars.terHeight;
         float scale = Vars.scale;
-        float[,] zValues = LandGenCalc.GenerateLand(width, height, scale); // Gets the revised 'z' values from 'LandGenCalc' class
+        float multiplier = Vars.depthMultiplier;
+        int oct = Vars.octaves;
+        float lac = Vars.lacunarity;
+        float pers = Vars.persistance;
 
-        ConstructTerrain(width, height, scale, zValues);
+        float[,] zValues = landGenCalc.GenerateLand(width, height, scale, oct, lac, pers); // Gets the revised 'z' values from 'LandGenCalc' class
+
+        ConstructTerrain(width, height, multiplier, zValues);
     }
 
-    public void ConstructTerrain(int _w, int _h, float _scale, float[,] _noiseValues)
+    public void ConstructTerrain(int _w, int _h, float multiplier, float[,] _noiseValues)
     {
-        GameObject terrainObj = new GameObject("Terrain");
+        terrainObj = new GameObject("Terrain");
         MeshFilter mf = terrainObj.AddComponent<MeshFilter>() as MeshFilter;
         MeshRenderer mr = terrainObj.AddComponent<MeshRenderer>() as MeshRenderer;
         Mesh mesh = mf.mesh;
@@ -33,7 +40,7 @@ public class MeshGen : MonoBehaviour
         {
             for (int x = 0; x <= _w; x++)
             {
-                vertices[y * (_w + 1) + x] = new Vector3(x, _noiseValues[x, y] * 30f, y); // works like assigning vertices[x, y]
+                vertices[y * (_w + 1) + x] = new Vector3(x, _noiseValues[x, y] * multiplier, y); // works like assigning vertices[x, y]
 
                 uvs[y * (_w + 1) + x] = new Vector2(x / (float)_w, y / (float)_h);
             }
@@ -50,8 +57,6 @@ public class MeshGen : MonoBehaviour
             }
         }
 
-        
-
         // Update the mesh
         mesh.Clear();
         mesh.vertices = vertices;
@@ -61,6 +66,8 @@ public class MeshGen : MonoBehaviour
         mesh.RecalculateNormals();
 
         terrainObj.GetComponent<Renderer>().material = defMat; // Set the terrain material
+
+        terrainObj.transform.position = new Vector3(-Vars.terWidth / 2, 0, -Vars.terHeight / 2); // Center the terrain
     }
 
     /*
