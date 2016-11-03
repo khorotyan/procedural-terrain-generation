@@ -29,7 +29,7 @@ public class MeshGen : MonoBehaviour
     {
         terrainObj = new GameObject("Terrain");
         MeshFilter mf = terrainObj.AddComponent<MeshFilter>() as MeshFilter;
-        MeshRenderer mr = terrainObj.AddComponent<MeshRenderer>() as MeshRenderer;
+        terrainObj.AddComponent<MeshRenderer>();
         Mesh mesh = mf.mesh;
 
         vertices = new Vector3[(_w + 1) * (_h + 1)];

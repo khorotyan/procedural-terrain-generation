@@ -7,9 +7,9 @@ public class Vars : MonoBehaviour
     public static int terHeight = 200;
     public static float scale = 30f;
     public static float depthMultiplier = 30f;
-    public static int octaves = 4;
-    public static float lacunarity = 2f;
+    public static int octaves = 3;
+    public static float lacunarity = 2.5f;
     public static float persistance = 0.5f;
     public static int seed;
-    public static Vector2 offset;
+    public static Vector2 offset = Vector2.zero;
 }

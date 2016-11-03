@@ -11,7 +11,7 @@ version 0.00.010 --- 25/10/2016 ---
 Added:
 1. A constant sized plane is created at start and it is transformed into a terrain by getting values from perlin noise with a scale
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-version 0.00.100 --- 1/11/2016 ---
+version 0.00.100 --- 01/11/2016 ---
 
 Added:
 1. In App panel containing some features
@@ -24,3 +24,31 @@ Changes & Improvements
 2. The terrain is centered
 3. The terrain is more realistic now because of altering the frequency and amplitude of the landscape
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+version 0.00.200 --- 03/11/2016 ---
+
+Added:
+1. You can change the terrain information live
+	a. Width and Height of the terrain
+	b. The Noise scale
+	c. Number of octaves
+	d. Lacunarity for frequency and persistance for amplitude
+	e. x and y offsets
+2. You can open/close the settings panel by clicking tab
+	the panel opens and closes smoothly using interpolation
+	the animation of opening and closing is reversed by again clicking on tab
+
+Changes & Improvements
+1. When enabling random spawn option, the previous seed is deleted 
+	before, if had to delete it manually in order to enable random terrain generation
+2. There is no longer a need to create on the "New Terrain" if you want to update the terrain information
+	You just update the value and the new terrain is automatically constructed
+3. Button transition is done with an animation, new animations are created for the current buttons
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+version 0.00.xxx --- xx/11/2016 ---
+
+
+
+
+
+
+
