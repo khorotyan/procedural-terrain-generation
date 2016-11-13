@@ -44,7 +44,13 @@ Changes & Improvements
 	You just update the value and the new terrain is automatically constructed
 3. Button transition is done with an animation, new animations are created for the current buttons
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-version 0.00.xxx --- xx/11/2016 ---
+version 0.00.300 --- 14/11/2016 ---
+
+Added: 
+1. A warp for the terrain to cut its sharp edges
+	two splines are created for the problem one for [0, m] other for [m, 1]
+	an algorithm is created and greately optimized (from n^2 to n/2 calculations)
+	
 
 
 

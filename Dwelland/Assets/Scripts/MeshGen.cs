@@ -25,7 +25,7 @@ public class MeshGen : MonoBehaviour
         ConstructTerrain(width, height, multiplier, zValues);
     }
 
-    public void ConstructTerrain(int _w, int _h, float multiplier, float[,] _noiseValues)
+    public void ConstructTerrain(int _w, int _h, float _multiplier, float[,] _noiseValues)
     {
         terrainObj = new GameObject("Terrain");
         MeshFilter mf = terrainObj.AddComponent<MeshFilter>() as MeshFilter;
@@ -39,8 +39,8 @@ public class MeshGen : MonoBehaviour
         for (int y = 0; y <= _h; y++)
         {
             for (int x = 0; x <= _w; x++)
-            {
-                vertices[y * (_w + 1) + x] = new Vector3(x, _noiseValues[x, y] * multiplier, y); // works like assigning vertices[x, y]
+            {     
+                vertices[y * (_w + 1) + x] = new Vector3(x, _noiseValues[x, y] * _multiplier, y); // works like assigning vertices[x, y]
 
                 uvs[y * (_w + 1) + x] = new Vector2(x / (float)_w, y / (float)_h);
             }

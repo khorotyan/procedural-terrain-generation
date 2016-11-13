@@ -6,6 +6,8 @@ using System.Text;
 public class LandGenCalc : MonoBehaviour
 {
     public LiveLandModifier llm;
+   
+    private static float[,] warpedLand = LandWarp.CreateWarpedLand(Vars.terWidth, Vars.terHeight);
 
     // Makes changes the depth values in a way to make the terrain more natural looking
     // Returns the  'z' values of the noise (the depth of the terrain)
@@ -78,7 +80,7 @@ public class LandGenCalc : MonoBehaviour
                 noiseValues[x, y] = depth;
             }
         }
-
+        
         for (int y = 0; y <= _height; y++)
         {
             for (int x = 0; x <= _width; x++)
@@ -86,6 +88,7 @@ public class LandGenCalc : MonoBehaviour
                 // minDepth becomes - 0, maxDepth - 1 (clamps min and max depths between [0, 1]
                 // and returns a value between [0, 1]
                 noiseValues[x, y] = Mathf.InverseLerp(minDepth, maxDepth, noiseValues[x, y]);
+                noiseValues[x, y] = noiseValues[x, y] - warpedLand[x, y]; // Subtract the warp values from thr original map
             }
         }
 
