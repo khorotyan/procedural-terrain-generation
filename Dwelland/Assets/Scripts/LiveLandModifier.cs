@@ -18,6 +18,10 @@ public class LiveLandModifier : MonoBehaviour
     public Text xOffsetValueText;
     public Slider yOffsetSlider;
     public Text yOffsetValueText;
+    public Slider warpMSlider;
+    public Text warpMValueText;
+    public Slider warpNSlider;
+    public Text warpNValueText;
     public Toggle randTerToggle;
     public GameObject settingsPanelObj;
 
@@ -166,6 +170,22 @@ public class LiveLandModifier : MonoBehaviour
     {
         Vars.offset.y = yOffsetSlider.value;
         yOffsetValueText.text = yOffsetSlider.value.ToString();
+
+        CreateMap();
+    }
+
+    public void OnWarpMValueChanged()
+    {
+        Vars.warpFuncM = warpMSlider.value;
+        warpMValueText.text = warpMSlider.value.ToString();
+
+        CreateMap();
+    }
+
+    public void OnWarpNValueChanged()
+    {
+        Vars.warpFuncN = warpNSlider.value;
+        warpNValueText.text = warpNSlider.value.ToString();
 
         CreateMap();
     }

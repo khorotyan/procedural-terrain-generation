@@ -7,13 +7,14 @@ public class LandGenCalc : MonoBehaviour
 {
     public LiveLandModifier llm;
    
-    private static float[,] warpedLand = LandWarp.CreateWarpedLand(Vars.terWidth, Vars.terHeight);
+    private static float[,] warpedLand;
 
     // Makes changes the depth values in a way to make the terrain more natural looking
     // Returns the  'z' values of the noise (the depth of the terrain)
     public float[,] GenerateLand(int _width, int _height, float _scale, int _octaves, float _lacunarity, float _persistance)
     {
         float[,] noiseValues = new float[_width + 1, _height + 1];
+        warpedLand = LandWarp.CreateWarpedLand(Vars.terWidth, Vars.terHeight);
 
         _scale = _scale == 0 ? 0.0001f : _scale; // Prevents getting division by zero error
         float minDepth = 1000f;

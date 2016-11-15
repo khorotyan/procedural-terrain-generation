@@ -4,11 +4,15 @@ using System.Collections;
 
 public class MeshGen : MonoBehaviour
 {
+    public Renderer rer;
     public Material defMat;
     private GameObject terrainObj;
 
     private Vector3[] vertices;
+
+    public float[,] depthValues = new float[Vars.terWidth + 1, Vars.terHeight + 1];
     public LandGenCalc landGenCalc;
+    public ColorInfo[] heightColors;
 
     public void Awake()
     {
@@ -27,6 +31,8 @@ public class MeshGen : MonoBehaviour
 
     public void ConstructTerrain(int _w, int _h, float _multiplier, float[,] _noiseValues)
     {
+        depthValues = _noiseValues;
+
         terrainObj = new GameObject("Terrain");
         MeshFilter mf = terrainObj.AddComponent<MeshFilter>() as MeshFilter;
         terrainObj.AddComponent<MeshRenderer>();
@@ -65,11 +71,85 @@ public class MeshGen : MonoBehaviour
         mesh.Optimize();
         mesh.RecalculateNormals();
 
+        /*
+         * Update the collider info
+        if (terrainObj.GetComponent<MeshCollider>() != null)
+            Destroy(terrainObj.GetComponent<MeshCollider>());
+        terrainObj.AddComponent<MeshCollider>();
+        */
+
         terrainObj.GetComponent<Renderer>().material = defMat; // Set the terrain material
 
         terrainObj.transform.position = new Vector3(-Vars.terWidth / 2, 0, -Vars.terHeight / 2); // Center the terrain
+
+        // Update the colors of the terrain
+        UpdateColors();
     }
 
+    // Get the colors depending on the height of the vertex
+    //      Skip every second and third vertex for interpolation
+    void UpdateColors()
+    {
+        int width = Vars.terWidth;
+        int height = Vars.terHeight;
+
+        Color[] colorcontainer = new Color[width * height];
+
+        for (int y = 0; y < height; y+=3)
+        {
+            for (int x = 0; x < width; x+=3)
+            {
+                float terDepth = depthValues[x, y];
+
+                for (int i = 0; i < heightColors.Length; i++)
+                {
+                    if (terDepth <= heightColors[i].height)
+                    {
+                        colorcontainer[y * width + x] = heightColors[i].color;
+                        break;
+                    }               
+                }
+            }
+        }
+
+        // Color the remaining vertices
+        for (int y = 0; y < height - 3; y += 3)
+        {
+            for (int x = 0; x < width - 3; x += 3)
+            {
+                Color y1 = colorcontainer[y * width + x];
+                Color y4 = colorcontainer[y * width + x + 3];
+
+                colorcontainer[y * width + x + 1] = y1 + 1 * (y4 - y1) / 3;
+                colorcontainer[y * width + x + 2] = y1 + 2 * (y4 - y1) / 3;
+            }
+        }
+
+        for (int y = 0; y < height - 3; y += 3)
+        {
+            for (int x = 0; x < width - 3; x ++)
+            {
+                Color y1 = colorcontainer[y * width + x];
+                Color y4 = colorcontainer[(y + 3) * width + x];
+
+                colorcontainer[(y + 1) * width + x] = y1 + 1 * (y4 - y1) / 3;
+                colorcontainer[(y + 2) * width + x] = y1 + 2 * (y4 - y1) / 3;
+            }
+        }
+        // End of -  Color the remaining vertices
+
+        // Apply the texture
+        Texture2D texture = new Texture2D(width, height);
+        texture.filterMode = FilterMode.Point;
+        texture.wrapMode = TextureWrapMode.Clamp;
+        texture.SetPixels(colorcontainer);
+        texture.Apply();
+
+        Renderer rend = GameObject.Find("Terrain").GetComponent<Renderer>();
+        rend.sharedMaterial.mainTexture = texture;
+        // End of - Apply the texture
+    }
+	
     /*
     // Shows the vertices
     public void OnDrawGizmos()
@@ -86,3 +166,12 @@ public class MeshGen : MonoBehaviour
     }
     */
 }
+
+// Make the ColorInfo struct visible in the inspector for manual height insertion
+[System.Serializable]
+public struct ColorInfo
+{
+    public float height;
+    public Color color;
+}
+

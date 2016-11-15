@@ -50,9 +50,19 @@ Added:
 1. A warp for the terrain to cut its sharp edges
 	two splines are created for the problem one for [0, m] other for [m, 1]
 	an algorithm is created and greately optimized (from n^2 to n/2 calculations)
-	
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+version 0.01.000 --- 16/11/2016 ---	
 
+Added:
+1. Colors are added to the terrain
+	The regions interpolate between the colors in order to make it a little smoother
+2. Sliders were added for live land warping
+3. Added controls for moving and rotating the camera as well as zooming in and out
+	The speeds of the functionality is multiplied by some fraction if the "Shift" button is on hold
 
+Upcoming:
+1. Make a panel for setting height colors 
+	Click Open Color Panels, then a window pops up which can also be moved
 
 
 
