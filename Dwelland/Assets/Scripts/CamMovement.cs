@@ -7,6 +7,8 @@ public class CamMovement : MonoBehaviour
     private float rotSpeed = 200f;
     private float scrollMult = 100f;
 
+    private bool canMoveMouse = false;
+
     void Awake ()
     {
         //transform.position = new Vector3(Vars.terWidth / 4, 75, -Vars.terHeight / 4);
@@ -45,9 +47,44 @@ public class CamMovement : MonoBehaviour
         // Set the clamped values
         transform.position = new Vector3(clampedXPos, clampedYPos, clampedZPos);
 
-        // Rotate the camera
-        transform.eulerAngles += new Vector3(0, Input.GetAxis("Mouse X") * rotSpeed * Time.deltaTime, 0);
-        transform.eulerAngles += new Vector3(-Input.GetAxis("Mouse Y") * rotSpeed * Time.deltaTime, 0, 0);
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            canMoveMouse = !canMoveMouse;
+        }
+
+        if (canMoveMouse == false)
+        {
+            if (Input.mousePosition.x < Screen.width * 7 / 10)
+            {
+                // Rotate the camera
+                transform.eulerAngles += new Vector3(0, Input.GetAxis("Mouse X") * rotSpeed * Time.deltaTime, 0);
+                transform.eulerAngles += new Vector3(-Input.GetAxis("Mouse Y") * rotSpeed * Time.deltaTime, 0, 0);
+
+                /*
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit, 10000))
+                {
+                    Debug.DrawLine(ray.origin, hit.point);
+                    transform.rotation = Quaternion.LookRotation((hit.point - transform.position) * Time.deltaTime);
+                }
+                */
+
+                //transform.rotation = Quaternion.LookRotation(Input.mousePosition);
+
+                //transform.Rotate(transform.eulerAngles + new Vector3(0, Input.GetAxis("Mouse X") * rotSpeed * Time.deltaTime, 0));
+                //transform.Rotate(transform.eulerAngles + new Vector3(-Input.GetAxis("Mouse Y") * rotSpeed * Time.deltaTime, 0, 0));
+            }
+        }
+        else
+        {
+            transform.eulerAngles += new Vector3(0, Input.GetAxis("Mouse X") * rotSpeed * Time.deltaTime, 0);
+            transform.eulerAngles += new Vector3(-Input.GetAxis("Mouse Y") * rotSpeed * Time.deltaTime, 0, 0);
+  
+        }
+        
+        
 
         //transform.rotation += Input.GetAxis("Mouse X") == 0 ? Vector3.zero : Input.GetAxis("Mouse X") > 0 ? Quaternion.Euler(0, -camSpeed * scrollMult, 0) * Time.deltaTime : new Vector3(0, camSpeed * scrollMult, 0) * Time.deltaTime;
 

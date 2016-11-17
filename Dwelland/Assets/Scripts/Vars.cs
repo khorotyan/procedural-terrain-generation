@@ -6,6 +6,7 @@ public class Vars : MonoBehaviour
     public static int terWidth = 200;
     public static int terHeight = 200;
     public static int size = 200;
+    public static int colorDetailLvl = 2;
     public static float scale = 50f;
     public static float depthMultiplier = 30f;
     public static int octaves = 3;

@@ -63,6 +63,41 @@ Added:
 Upcoming:
 1. Make a panel for setting height colors 
 	Click Open Color Panels, then a window pops up which can also be moved
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+version 0.01.100 --- 17/11/2016 ---	
+
+Added:
+1. Option to change the color detail of the terrain
+
+Changes & Improvements:
+1. The camera is no longer rotated when the mouse is near the settings panel
+	the camera can rotate near the settings panel if it is closed
+2. The land colors are interpolated 2x, 4x, 8x, and 16x smoother (not optimized)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+version 0.01.xxx --- xx/11/2016 ---
+
+Added:
+1. 
+
+Changes & Improvements:
+1.
+
+Upcoming:
+1. Make a panel for setting height colors 
+	Click Open Color Panels, then a window pops up which can also be moved
+2. Replace Width and Height input boxes with a Size box
+3. Improve the camera rotation
+4. Do a smooth interpolation of land colors
+5. Replace colors of the terrain with textures
+6. Place nodes onto the terrain
+7. Make Option helpers
+	When the mouse is hovered over the option buttons, helper texts are shown
+
+
+
+
+
+
 
 
 

@@ -22,13 +22,14 @@ public class LiveLandModifier : MonoBehaviour
     public Text warpMValueText;
     public Slider warpNSlider;
     public Text warpNValueText;
+    public InputField colorLevelInputField;
     public Toggle randTerToggle;
     public GameObject settingsPanelObj;
 
     public MeshGen meshGen; // Reference to the MeshGen script
     public LandGenCalc landGenCalc;
 
-    private bool settingsPanelOpen = true;
+    public static bool settingsPanelOpen = true;
     private bool canStartInterpolation = false;
 
     // Awake is called whenever the instance of the script is loaded
@@ -48,6 +49,9 @@ public class LiveLandModifier : MonoBehaviour
 
         octaveInputField.contentType = InputField.ContentType.IntegerNumber;
         octaveInputField.characterLimit = 1;
+
+        colorLevelInputField.contentType = InputField.ContentType.IntegerNumber;
+        colorLevelInputField.characterLimit = 1;
     }
 	
     // Update is called every frame
@@ -103,6 +107,8 @@ public class LiveLandModifier : MonoBehaviour
 
     public void OnSeedValueChanged()
     {
+        colorLevelInputField.text = 2.ToString();
+        Vars.colorDetailLvl = 2;
         CreateMap();
     }
 
@@ -112,6 +118,8 @@ public class LiveLandModifier : MonoBehaviour
         Vars.terWidth = newWidth;
         terWidthInputField.text = newWidth.ToString();
 
+        colorLevelInputField.text = 2.ToString();
+        Vars.colorDetailLvl = 2;
         CreateMap();
     }
 
@@ -121,6 +129,8 @@ public class LiveLandModifier : MonoBehaviour
         Vars.terHeight = newHeight;
         terHeightInputField.text = newHeight.ToString();
 
+        colorLevelInputField.text = 2.ToString();
+        Vars.colorDetailLvl = 2;
         CreateMap();
     }
 
@@ -130,6 +140,8 @@ public class LiveLandModifier : MonoBehaviour
         Vars.scale = newNoiseScale;
         noiseScaleInputField.text = newNoiseScale.ToString();
 
+        colorLevelInputField.text = 2.ToString();
+        Vars.colorDetailLvl = 2;
         CreateMap();
     }
 
@@ -139,6 +151,8 @@ public class LiveLandModifier : MonoBehaviour
         Vars.octaves = newOctave;
         octaveInputField.text = newOctave.ToString();
 
+        colorLevelInputField.text = 2.ToString();
+        Vars.colorDetailLvl = 2;
         CreateMap();
     }
 
@@ -147,6 +161,8 @@ public class LiveLandModifier : MonoBehaviour
         Vars.lacunarity = frequencySlider.value;
         frequencyValueText.text = frequencySlider.value.ToString();
 
+        colorLevelInputField.text = 2.ToString();
+        Vars.colorDetailLvl = 2;
         CreateMap();
     }
 
@@ -155,6 +171,8 @@ public class LiveLandModifier : MonoBehaviour
         Vars.persistance = amplitudeSlider.value;
         amplitudeValueText.text = amplitudeSlider.value.ToString();
 
+        colorLevelInputField.text = 2.ToString();
+        Vars.colorDetailLvl = 2;
         CreateMap();
     }
 
@@ -163,6 +181,8 @@ public class LiveLandModifier : MonoBehaviour
         Vars.offset.x = xOffsetSlider.value;
         xOffsetValueText.text = xOffsetSlider.value.ToString();
 
+        colorLevelInputField.text = 2.ToString();
+        Vars.colorDetailLvl = 2;
         CreateMap();
     }
 
@@ -171,6 +191,8 @@ public class LiveLandModifier : MonoBehaviour
         Vars.offset.y = yOffsetSlider.value;
         yOffsetValueText.text = yOffsetSlider.value.ToString();
 
+        colorLevelInputField.text = 2.ToString();
+        Vars.colorDetailLvl = 2;
         CreateMap();
     }
 
@@ -179,6 +201,8 @@ public class LiveLandModifier : MonoBehaviour
         Vars.warpFuncM = warpMSlider.value;
         warpMValueText.text = warpMSlider.value.ToString();
 
+        colorLevelInputField.text = 2.ToString();
+        Vars.colorDetailLvl = 2;
         CreateMap();
     }
 
@@ -186,6 +210,17 @@ public class LiveLandModifier : MonoBehaviour
     {
         Vars.warpFuncN = warpNSlider.value;
         warpNValueText.text = warpNSlider.value.ToString();
+
+        colorLevelInputField.text = 2.ToString();
+        Vars.colorDetailLvl = 2;
+        CreateMap();
+    }
+
+    public void OnColorDetailValueChanged()
+    {
+        int colorLevel = Mathf.Clamp(int.Parse(colorLevelInputField.text), 2, 5);
+        Vars.colorDetailLvl = colorLevel;
+        colorLevelInputField.text = colorLevel.ToString();
 
         CreateMap();
     }

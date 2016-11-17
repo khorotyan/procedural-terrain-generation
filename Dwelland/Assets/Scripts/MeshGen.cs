@@ -31,6 +31,9 @@ public class MeshGen : MonoBehaviour
 
     public void ConstructTerrain(int _w, int _h, float _multiplier, float[,] _noiseValues)
     {
+        int newH = 2 * _h;
+        int newW = 2 * _w;
+
         depthValues = _noiseValues;
 
         terrainObj = new GameObject("Terrain");
@@ -90,16 +93,18 @@ public class MeshGen : MonoBehaviour
     //      Skip every second and third vertex for interpolation
     void UpdateColors()
     {
-        int width = Vars.terWidth;
-        int height = Vars.terHeight;
+        int divider = (int) Mathf.Pow(2, Vars.colorDetailLvl);
+
+        int width = divider * Vars.terWidth;
+        int height = divider * Vars.terHeight;
 
         Color[] colorcontainer = new Color[width * height];
 
-        for (int y = 0; y < height; y+=3)
+        for (int y = 0; y <= height; y+=3 + divider)
         {
-            for (int x = 0; x < width; x+=3)
+            for (int x = 0; x <= width; x+=3 + divider)
             {
-                float terDepth = depthValues[x, y];
+                float terDepth = depthValues[x / divider, y / divider];
 
                 for (int i = 0; i < heightColors.Length; i++)
                 {
@@ -111,31 +116,39 @@ public class MeshGen : MonoBehaviour
                 }
             }
         }
-
+        
         // Color the remaining vertices
-        for (int y = 0; y < height - 3; y += 3)
+        for (int y = 0; y <= height - 3; y += 3 + divider)
         {
-            for (int x = 0; x < width - 3; x += 3)
+            for (int x = 0; x <= width - 3; x += 3 + divider)
             {
                 Color y1 = colorcontainer[y * width + x];
-                Color y4 = colorcontainer[y * width + x + 3];
+                Color yNext = colorcontainer[y * width + x + (3 + divider)];
 
-                colorcontainer[y * width + x + 1] = y1 + 1 * (y4 - y1) / 3;
-                colorcontainer[y * width + x + 2] = y1 + 2 * (y4 - y1) / 3;
+                for (int i = 1; i <= 3 + divider; i++)
+                {
+                    colorcontainer[y * width + x + i] = y1 + i * (yNext - y1) / (3 + divider);
+                }
             }
         }
 
-        for (int y = 0; y < height - 3; y += 3)
+        for (int y = 0; y <= height - divider; y += 3 + divider)
         {
-            for (int x = 0; x < width - 3; x ++)
+            for (int x = 0; x <= width - divider; x++)
             {
                 Color y1 = colorcontainer[y * width + x];
-                Color y4 = colorcontainer[(y + 3) * width + x];
+                Color yNext = colorcontainer[(y + 3 + divider) * width + x];
 
-                colorcontainer[(y + 1) * width + x] = y1 + 1 * (y4 - y1) / 3;
-                colorcontainer[(y + 2) * width + x] = y1 + 2 * (y4 - y1) / 3;
+                for (int i = 1; i <= 3 + divider; i++)
+                {
+                    colorcontainer[(y + i) * width + x] = y1 + i * (yNext - y1) / (3 + divider);
+                }
+
+                //colorcontainer[(y + 1) * width + x] = y1 + 1 * (y4 - y1) / (3 + divider);
+                //colorcontainer[(y + 2) * width + x] = y1 + 2 * (y4 - y1) / (3 + divider);
             }
         }
+
         // End of -  Color the remaining vertices
 
         // Apply the texture
