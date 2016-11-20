@@ -74,6 +74,17 @@ Changes & Improvements:
 	the camera can rotate near the settings panel if it is closed
 2. The land colors are interpolated 2x, 4x, 8x, and 16x smoother (not optimized)
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+version 0.01.200 --- 20/11/2016 ---
+
+Added:
+1. A help system is added for explaining the UI elements of the App
+
+Changes & Improvements:
+1. Width and Height input fields are replaced with a size input box
+	Some errors are fixed which would color the terrain incorrectly
+2. Camera rotation is improved, no more bugs that caused the camera to do inverse rotation
+3. Seed Inputfield and the checkmark for creaing random maps is disabled temporarily because of problems 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 version 0.01.xxx --- xx/11/2016 ---
 
 Added:
@@ -85,14 +96,14 @@ Changes & Improvements:
 Upcoming:
 1. Make a panel for setting height colors 
 	Click Open Color Panels, then a window pops up which can also be moved
-2. Replace Width and Height input boxes with a Size box
-3. Improve the camera rotation
-4. Do a smooth interpolation of land colors
-5. Replace colors of the terrain with textures
-6. Place nodes onto the terrain
-7. Make Option helpers
+2. Do a smooth interpolation of land colors
+3. Replace colors of the terrain with textures
+4. Place nodes onto the terrain
+5. Make Option helpers
 	When the mouse is hovered over the option buttons, helper texts are shown
-
+6. Solve the warp problem, where the land is higher through a line
+7. Update the placeholder texts of the options panel whenever the program is started
+8. Fix Seed problems
 
 
 

@@ -14,7 +14,7 @@ public class LandGenCalc : MonoBehaviour
     public float[,] GenerateLand(int _width, int _height, float _scale, int _octaves, float _lacunarity, float _persistance)
     {
         float[,] noiseValues = new float[_width + 1, _height + 1];
-        warpedLand = LandWarp.CreateWarpedLand(Vars.terWidth, Vars.terHeight);
+        warpedLand = LandWarp.CreateWarpedLand(Vars.size, Vars.size);
 
         _scale = _scale == 0 ? 0.0001f : _scale; // Prevents getting division by zero error
         float minDepth = 1000f;

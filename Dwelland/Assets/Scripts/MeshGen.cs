@@ -4,20 +4,21 @@ using System.Collections;
 
 public class MeshGen : MonoBehaviour
 {
+    public Texture[] tt = new Texture[9];
     public Renderer rer;
     public Material defMat;
     private GameObject terrainObj;
 
     private Vector3[] vertices;
 
-    public float[,] depthValues = new float[Vars.terWidth + 1, Vars.terHeight + 1];
+    public float[,] depthValues = new float[Vars.size + 1, Vars.size + 1];
     public LandGenCalc landGenCalc;
     public ColorInfo[] heightColors;
 
     public void Awake()
     {
-        int width = Vars.terWidth;
-        int height = Vars.terHeight;
+        int width = Vars.size;
+        int height = Vars.size;
         float scale = Vars.scale;
         float multiplier = Vars.depthMultiplier;
         int oct = Vars.octaves;
@@ -31,9 +32,6 @@ public class MeshGen : MonoBehaviour
 
     public void ConstructTerrain(int _w, int _h, float _multiplier, float[,] _noiseValues)
     {
-        int newH = 2 * _h;
-        int newW = 2 * _w;
-
         depthValues = _noiseValues;
 
         terrainObj = new GameObject("Terrain");
@@ -83,7 +81,7 @@ public class MeshGen : MonoBehaviour
 
         terrainObj.GetComponent<Renderer>().material = defMat; // Set the terrain material
 
-        terrainObj.transform.position = new Vector3(-Vars.terWidth / 2, 0, -Vars.terHeight / 2); // Center the terrain
+        terrainObj.transform.position = new Vector3(-Vars.size / 2, 0, -Vars.size / 2); // Center the terrain
 
         // Update the colors of the terrain
         UpdateColors();
@@ -95,8 +93,8 @@ public class MeshGen : MonoBehaviour
     {
         int divider = (int) Mathf.Pow(2, Vars.colorDetailLvl);
 
-        int width = divider * Vars.terWidth;
-        int height = divider * Vars.terHeight;
+        int width = divider * Vars.size;
+        int height = divider * Vars.size;
 
         Color[] colorcontainer = new Color[width * height];
 
@@ -116,7 +114,7 @@ public class MeshGen : MonoBehaviour
                 }
             }
         }
-        
+ 
         // Color the remaining vertices
         for (int y = 0; y <= height - 3; y += 3 + divider)
         {
@@ -132,9 +130,9 @@ public class MeshGen : MonoBehaviour
             }
         }
 
-        for (int y = 0; y <= height - divider; y += 3 + divider)
+        for (int y = 0; y <= height - divider - 3; y += 3 + divider)
         {
-            for (int x = 0; x <= width - divider; x++)
+            for (int x = 0; x <= width - divider - 3; x++)
             {
                 Color y1 = colorcontainer[y * width + x];
                 Color yNext = colorcontainer[(y + 3 + divider) * width + x];
@@ -156,6 +154,7 @@ public class MeshGen : MonoBehaviour
         texture.filterMode = FilterMode.Point;
         texture.wrapMode = TextureWrapMode.Clamp;
         texture.SetPixels(colorcontainer);
+
         texture.Apply();
 
         Renderer rend = GameObject.Find("Terrain").GetComponent<Renderer>();

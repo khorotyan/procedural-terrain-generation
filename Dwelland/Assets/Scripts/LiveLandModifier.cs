@@ -6,8 +6,7 @@ using System;
 public class LiveLandModifier : MonoBehaviour
 {
     public InputField seedInputField;
-    public InputField terWidthInputField;
-    public InputField terHeightInputField;
+    public InputField terSizeInputField;
     public InputField noiseScaleInputField;
     public InputField octaveInputField;
     public Slider frequencySlider;
@@ -38,11 +37,8 @@ public class LiveLandModifier : MonoBehaviour
         seedInputField.contentType = InputField.ContentType.Alphanumeric;
         seedInputField.characterLimit = 8;
 
-        terWidthInputField.contentType = InputField.ContentType.IntegerNumber;
-        terWidthInputField.characterLimit = 3;
-
-        terHeightInputField.contentType = InputField.ContentType.IntegerNumber;
-        terHeightInputField.characterLimit = 3;
+        terSizeInputField.contentType = InputField.ContentType.IntegerNumber;
+        terSizeInputField.characterLimit = 3;
 
         noiseScaleInputField.contentType = InputField.ContentType.IntegerNumber;
         noiseScaleInputField.characterLimit = 2;
@@ -79,8 +75,8 @@ public class LiveLandModifier : MonoBehaviour
         Destroy(terrain);
 
         // Construct the new Terrain
-        int width = Vars.terWidth;
-        int height = Vars.terHeight;
+        int width = Vars.size;
+        int height = Vars.size;
         float scale = Vars.scale;
         float multiplier = Vars.depthMultiplier;
         int oct = Vars.octaves;
@@ -112,22 +108,11 @@ public class LiveLandModifier : MonoBehaviour
         CreateMap();
     }
 
-    public void OnWidthValueChanged()
+    public void OnTerSizeValueChanged()
     {
-        int newWidth = Mathf.Clamp(int.Parse(terWidthInputField.text), 100, 250);
-        Vars.terWidth = newWidth;
-        terWidthInputField.text = newWidth.ToString();
-
-        colorLevelInputField.text = 2.ToString();
-        Vars.colorDetailLvl = 2;
-        CreateMap();
-    }
-
-    public void OnHeightValueChanged()
-    {
-        int newHeight = Mathf.Clamp(int.Parse(terHeightInputField.text), 100, 250);
-        Vars.terHeight = newHeight;
-        terHeightInputField.text = newHeight.ToString();
+        int newSize = Mathf.Clamp(int.Parse(terSizeInputField.text), 100, 250);
+        Vars.size = newSize;
+        terSizeInputField.text = newSize.ToString();
 
         colorLevelInputField.text = 2.ToString();
         Vars.colorDetailLvl = 2;

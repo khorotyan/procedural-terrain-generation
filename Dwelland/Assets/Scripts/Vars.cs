@@ -3,8 +3,6 @@
 // Contains most of the variables of the project in order to make it easier to call the variables
 public class Vars : MonoBehaviour
 {
-    public static int terWidth = 200;
-    public static int terHeight = 200;
     public static int size = 200;
     public static int colorDetailLvl = 2;
     public static float scale = 50f;
